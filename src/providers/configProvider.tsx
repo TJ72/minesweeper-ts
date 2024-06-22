@@ -1,25 +1,23 @@
 "use client";
 
-import { createContext } from "react";
-import type { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
+import { createContext, useState } from "react";
+import type { Dispatch, FC, ReactNode, SetStateAction } from "react";
 
 import type { Config } from "@/types";
-
-export const ConfigContext = createContext<{
-  config: Config;
-  setConfig: Dispatch<SetStateAction<Config>>;
-}>({ config: { rows: 10, cols: 10, mines: 10 }, setConfig: () => {} });
 
 type ConfigProviderProps = {
   config: Config;
   setConfig: Dispatch<SetStateAction<Config>>;
 };
 
-export const ConfigProvider: FC<PropsWithChildren<ConfigProviderProps>> = ({
-  config,
-  setConfig,
-  children,
-}) => {
+export const ConfigContext = createContext<ConfigProviderProps>({
+  config: { rows: 10, cols: 10, mines: 10 },
+  setConfig: () => {},
+});
+
+export const ConfigProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [config, setConfig] = useState({ rows: 10, cols: 10, mines: 10 });
+
   return (
     <ConfigContext.Provider value={{ config, setConfig }}>
       {children}
