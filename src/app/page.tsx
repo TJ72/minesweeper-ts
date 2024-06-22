@@ -1,14 +1,15 @@
-"use client";
+import { ConfigProvider } from "@/providers/configProvider";
 
-import { useState, useContext } from "react";
-import { ConfigContext, ConfigProvider } from "@/providers/configProvider";
+import Header from "@/components/Header";
+import Board from "@/components/Board";
 
 export default function Home() {
-  const [config, setConfig] = useState({ rows: 10, cols: 10, mines: 10 });
-
   return (
-    <ConfigProvider config={config} setConfig={setConfig}>
-      <div>Home</div>
+    <ConfigProvider>
+      <div className="w-screen h-screen flex flex-col items-center justify-center">
+        <Header />
+        <Board />
+      </div>
     </ConfigProvider>
   );
 }
